@@ -8,7 +8,6 @@ duck_frame = pygame.image.load('frame1.png').convert()
 duck_frame = pygame.transform.scale(duck_frame, (125, 125))
 
 # Ducks
-duckImg = []
 duckX = []
 duckY = []
 duckX_change = []
