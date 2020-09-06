@@ -1,0 +1,37 @@
+import pygame
+from background import screen
+import random
+
+duck_frame = pygame.image.load('frame1.png').convert_alpha()
+duck_frame = pygame.transform.scale(duck_frame, (125, 125))
+duck_rect = duck_frame.get_rect()
+
+# Ducks
+duckImg = []
+duckX = []
+duckY = []
+duckX_change = []
+duckY_change = []
+num_of_ducks = 10
+for i in range(num_of_ducks):
+    duckImg.append(duck_frame)
+    duckX.append(random.randint(-1000, -100))  # random x coordinate
+    duckY.append(random.randint(0, 500))  # random y coordinate
+    duckX_change.append(random.randint(2, 9))  # random duck speed
+    duckY_change.append(40)
+
+
+def duck(x, y, i):
+    screen.blit(duckImg[i], (x, y))
+
+
+def draw_duck():
+    for i in range(num_of_ducks):
+        # make the ducks move
+        duckX[i] += duckX_change[i]
+        duck(duckX[i], duckY[i], i)
+        if duckX[i] > 2000:
+            # respawn with new random x,y coordinates and speed
+            duckX[i] = random.randint(-1000, -100)
+            duckY[i] = random.randint(0, 500)
+            duckX_change[i] = random.randint(2, 9)
