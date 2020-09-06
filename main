@@ -1,6 +1,7 @@
 import pygame
 from background import build_background
-from duck import draw_duck, duck_rect
+from duck import draw_duck, duck_frame
+from cursor import set_cursor_image
 
 pygame.init()
 
@@ -16,17 +17,18 @@ def events():
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 running = False
-        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+        if event.type == pygame.MOUSEBUTTONUP:
             x, y = event.pos
-            if duck_rect.collidepoint(x, y):
-                print("test")
+            if duck_frame.get_rect().collidepoint(x, y):
+                print("hit")  # works like 1% of the time on certain ducks for some reason
 
 
 if __name__ == '__main__':
     while running:
         build_background()
-        events()
         draw_duck()
+        set_cursor_image()
+        events()
         pygame.display.update()
-        clock.tick(60)
+        clock.tick(300)
     pygame.quit()
