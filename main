@@ -1,0 +1,32 @@
+import pygame
+from background import build_background
+from duck import draw_duck, duck_rect
+
+pygame.init()
+
+clock = pygame.time.Clock()
+running = True
+
+
+def events():
+    global running
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                running = False
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            x, y = event.pos
+            if duck_rect.collidepoint(x, y):
+                print("test")
+
+
+if __name__ == '__main__':
+    while running:
+        build_background()
+        events()
+        draw_duck()
+        pygame.display.update()
+        clock.tick(60)
+    pygame.quit()
