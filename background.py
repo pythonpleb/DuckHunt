@@ -1,15 +1,17 @@
 import pygame
 
 screen = pygame.display.set_mode((1920, 1080), pygame.FULLSCREEN)
-grass = pygame.image.load('grass.png')
+grass = pygame.image.load('grass.png').convert_alpha()
 
-tree = pygame.image.load('tree.png')
+tree = pygame.image.load('tree.png').convert_alpha()
 tree = pygame.transform.scale(tree, (2900, 634))
 
-bush = pygame.image.load('bush.png')
+bush = pygame.image.load('bush.png').convert_alpha()
 bush = pygame.transform.scale(bush, (2900, 634))
 
-dirt = pygame.image.load('dirt.png')
+dirt = pygame.image.load('dirt.png').convert_alpha()
+
+sky = pygame.image.load('sky.png').convert_alpha()
 
 
 def grass_builder():
@@ -27,10 +29,13 @@ def nature_builder():
     screen.blit(bush, (-750, 420))
 
 
+def sky_builder():
+    screen.blit(sky, (0, 0))
+
+
 def build_background():
     screen.fill((79, 168, 253))
+    sky_builder()
     nature_builder()
     grass_builder()
     dirt_builder()
-
-
