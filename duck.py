@@ -2,8 +2,19 @@ import pygame
 from background import screen
 import random
 
-duck_frame = pygame.image.load('frame1.png').convert_alpha()
-duck_frame = pygame.transform.scale(duck_frame, (125, 125))
+fly_animation_frames = [pygame.image.load('frame1-resized.png').convert_alpha(),
+                        pygame.image.load('frame1-resized.png').convert_alpha(),
+                        pygame.image.load('frame1-resized.png').convert_alpha(),
+                        pygame.image.load('frame2-resized.png').convert_alpha(),
+                        pygame.image.load('frame2-resized.png').convert_alpha(),
+                        pygame.image.load('frame2-resized.png').convert_alpha(),
+                        pygame.image.load('frame3-resized.png').convert_alpha(),
+                        pygame.image.load('frame3-resized.png').convert_alpha(),
+                        pygame.image.load('frame3-resized.png').convert_alpha(),
+                        pygame.image.load('frame4-resized.png').convert_alpha(),
+                        pygame.image.load('frame4-resized.png').convert_alpha(),
+                        pygame.image.load('frame4-resized.png').convert_alpha(),
+                        ]
 
 duck_shot = pygame.image.load('duck_shot.png').convert_alpha()
 duck_shot = pygame.transform.scale(duck_shot, (125, 125))
@@ -15,6 +26,8 @@ duckX_change = []
 duckY_change = []
 num_of_ducks = 10
 
+flyCount = 0
+
 for i in range(num_of_ducks):
     duckX.append(random.randint(-1000, -100))  # random x coordinate
     duckY.append(random.randint(0, 500))  # random y coordinate
@@ -23,11 +36,15 @@ for i in range(num_of_ducks):
 
 
 def ducks(x, y):
-    screen.blit(duck_frame, (x, y))
+    global flyCount
+    screen.blit(fly_animation_frames[flyCount], (x, y))
+    flyCount += 1  # cycle through the frames
+    if flyCount + 1 > 12:  # 12 is num of frames
+        flyCount = 0  # reset back to first frame to keep the cycle goings
 
 
 def killed_duck(x, y):
-    screen.blit(duck_shot, (x-63, y-63))  # draw shot duck in the middle of the cursor
+    screen.blit(duck_shot, (x - 63, y - 63))  # draw shot duck in the middle of the cursor
 
 
 def reset_duck(i):
