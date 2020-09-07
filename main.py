@@ -32,7 +32,7 @@ def events():
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 running = False
-        if event.type == pygame.MOUSEBUTTONUP:
+        if event.type == pygame.MOUSEBUTTONDOWN:
             duck_id = check_click(event.pos)
             x, y = event.pos  # get mouse position
             if duck_id >= 0:
