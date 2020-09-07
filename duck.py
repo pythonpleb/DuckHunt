@@ -1,11 +1,12 @@
+import pygame
+from background import screen
 import random
 
-import pygame
-
-from background import screen
-
-duck_frame = pygame.image.load('frame1.png').convert()
+duck_frame = pygame.image.load('frame1.png').convert_alpha()
 duck_frame = pygame.transform.scale(duck_frame, (125, 125))
+
+duck_shot = pygame.image.load('duck_shot.png').convert_alpha()
+duck_shot = pygame.transform.scale(duck_shot, (125, 125))
 
 # Ducks
 duckX = []
@@ -18,11 +19,15 @@ for i in range(num_of_ducks):
     duckX.append(random.randint(-1000, -100))  # random x coordinate
     duckY.append(random.randint(0, 500))  # random y coordinate
     duckX_change.append(random.randint(2, 9))  # random duck speed
-    duckY_change.append(40)
+    duckY_change.append(0)
 
 
 def ducks(x, y):
     screen.blit(duck_frame, (x, y))
+
+
+def killed_duck(x, y):
+    screen.blit(duck_shot, (x-63, y-63))  # draw shot duck in the middle of the cursor
 
 
 def reset_duck(i):
@@ -42,15 +47,8 @@ def draw_duck():
 
 
 def check_click(pos):
-    """
-    Check if the click event was on one of the ducks.
-    Loop for all the ducks and find the one which has the click event coordinates
-    inside its hitbox.
-    Returns the duck id or -1 if no duck was clicked
-    """
     x, y = pos
     for i in range(num_of_ducks):
         if duckX[i] <= x <= duckX[i] + 125 and duckY[i] <= y <= duckY[i] + 125:
             return i
-
     return -1
