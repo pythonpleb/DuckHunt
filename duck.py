@@ -15,9 +15,11 @@ fly_animation_frames = [pygame.image.load('frame1-resized.png').convert_alpha(),
                         pygame.image.load('frame4-resized.png').convert_alpha(),
                         pygame.image.load('frame4-resized.png').convert_alpha(),
                         ]
-
+flyCount = 0
 duck_shot = pygame.image.load('duck_shot.png').convert_alpha()
 duck_shot = pygame.transform.scale(duck_shot, (125, 125))
+
+duck_down = pygame.image.load('duck_down.png').convert_alpha()
 
 # Ducks
 duckX = []
@@ -25,8 +27,6 @@ duckY = []
 duckX_change = []
 duckY_change = []
 num_of_ducks = 10
-
-flyCount = 0
 
 for i in range(num_of_ducks):
     duckX.append(random.randint(-1000, -100))  # random x coordinate
@@ -43,8 +43,8 @@ def ducks(x, y):
         flyCount = 0  # reset back to first frame to keep the cycle goings
 
 
-def killed_duck(x, y):
-    screen.blit(duck_shot, (x - 63, y - 63))  # draw shot duck in the middle of the cursor
+def killed_duck(i):
+    screen.blit(duck_shot, (duckX[i], duckY[i]))
 
 
 def reset_duck(i):
