@@ -14,8 +14,6 @@ score_font = pygame.font.Font('duckHuntFont.TTF', 32)
 textX = 1300
 textY = 1000
 
-freeze = 0
-
 
 def show_score(x, y):
     score_num = score_font.render("SCORE: " + str(score_val), True, (255, 255, 255))
@@ -25,7 +23,6 @@ def show_score(x, y):
 def events():
     global running
     global score_val
-    global freeze
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -34,11 +31,10 @@ def events():
                 running = False
         if event.type == pygame.MOUSEBUTTONDOWN:
             duck_id = check_click(event.pos)
-            x, y = event.pos  # get mouse position
             if duck_id >= 0:
+                killed_duck(duck_id)
                 reset_duck(duck_id)  # send the duck back if it was clicked
-                killed_duck(x, y)  # draw a killed duck in the mouse position, make it stay somehow
-                score_val += 1
+                score_val += 1500
                 # print("hit: ", duck_id)
 
 
