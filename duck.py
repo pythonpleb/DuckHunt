@@ -28,6 +28,8 @@ duckX_change = []
 duckY_change = []
 num_of_ducks = 10
 
+duck_killed = False
+
 for i in range(num_of_ducks):
     duckX.append(random.randint(-1000, -100))  # random x coordinate
     duckY.append(random.randint(0, 500))  # random y coordinate
@@ -43,8 +45,15 @@ def ducks(x, y):
         flyCount = 0  # reset back to first frame to keep the cycle goings
 
 
+def is_shot():
+    global duck_killed
+    duck_killed = True
+
+
 def killed_duck(i):
-    screen.blit(duck_shot, (duckX[i], duckY[i]))
+    if duck_killed:
+        screen.blit(duck_shot, (duckX[i], duckY[i]))
+        print("boom")
 
 
 def reset_duck(i):
@@ -61,6 +70,8 @@ def draw_duck():
         if duckX[i] > 2000:
             # respawn with new random x,y coordinates and speed
             reset_duck(i)
+        if duck_killed:
+            killed_duck(i)
 
 
 def check_click(pos):
