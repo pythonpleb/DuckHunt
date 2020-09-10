@@ -19,7 +19,7 @@ flyCount = 0
 duck_shot = pygame.image.load('duck_shot.png').convert_alpha()
 duck_shot = pygame.transform.scale(duck_shot, (125, 125))
 
-duck_down = pygame.image.load('duck_down.png').convert_alpha()
+# duck_down = pygame.image.load('duck_down.png').convert_alpha()
 
 # Ducks
 duckX = []
