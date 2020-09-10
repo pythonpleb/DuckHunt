@@ -1,7 +1,7 @@
 import pygame
 from background import build_background, screen
 from cursor import set_cursor_image
-from duck import draw_duck, check_click, reset_duck, killed_duck
+from duck import draw_duck, check_click, reset_duck, killed_duck, is_shot
 
 pygame.init()
 
@@ -32,7 +32,8 @@ def events():
         if event.type == pygame.MOUSEBUTTONDOWN:
             duck_id = check_click(event.pos)
             if duck_id >= 0:
-                killed_duck(duck_id)
+                is_shot()
+
                 reset_duck(duck_id)  # send the duck back if it was clicked
                 score_val += 1500
                 # print("hit: ", duck_id)
@@ -45,6 +46,7 @@ if __name__ == '__main__':
         draw_duck()
         set_cursor_image()
         events()
+        #killed_duck()
         show_score(textX, textY)
         pygame.display.flip()
         clock.tick(60)
