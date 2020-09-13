@@ -1,6 +1,6 @@
 import pygame
 
-from background import build_background, screen
+from background import grass_builder, dirt_builder, build_background, screen
 from cursor import set_cursor_image
 from manager import check_click, move_and_draw_ducks, populate_ducks
 
@@ -33,7 +33,6 @@ def events():
         if event.type == pygame.MOUSEBUTTONDOWN:
             if check_click(event.pos[0], event.pos[1]):
                 score_val += 1500
-                # print("hit: ", duck_id)
 
 
 if __name__ == '__main__':
@@ -42,9 +41,10 @@ if __name__ == '__main__':
     while running:
         build_background()
         move_and_draw_ducks()
+        grass_builder()
+        dirt_builder()
         set_cursor_image()
         events()
-        # killed_duck()
         show_score(textX, textY)
         pygame.display.flip()
         clock.tick(50)  # this means 20 ticks per second
