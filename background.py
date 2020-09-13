@@ -37,5 +37,3 @@ def build_background():
     screen.fill((79, 168, 253))
     sky_builder()
     nature_builder()
-    grass_builder()
-    dirt_builder()
