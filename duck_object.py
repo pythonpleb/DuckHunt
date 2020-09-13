@@ -6,9 +6,14 @@ class DuckObject:
     y = 0  # position y
     v_x = 0  # velocity x or the change in x position
     v_y = 0  # velocity y or the change in y position
+    store_x = 0
+    store_y = 0
     dead = False
-    dead_time = 0   # count how long the duck was dead for
+    is_falling = False
+    fall_speed = 15
+    dead_time = 0  # count how long the duck was dead for
     animation_frame_count = 0
+    fall_frame_count = 0
 
     def reset(self):
         self.x = random.randint(-1000, -100)
