@@ -10,6 +10,7 @@ from duck_object import DuckObject
 ducks = []  # 10
 num_of_ducks = 10
 
+# animation
 fly_animation_frames = [pygame.image.load('frame1-resized.png').convert_alpha(),
                         pygame.image.load('frame1-resized.png').convert_alpha(),
                         pygame.image.load('frame1-resized.png').convert_alpha(),
@@ -23,9 +24,6 @@ fly_animation_frames = [pygame.image.load('frame1-resized.png').convert_alpha(),
                         pygame.image.load('frame4-resized.png').convert_alpha(),
                         pygame.image.load('frame4-resized.png').convert_alpha(),
                         ]
-duck_shot = pygame.image.load('duck_shot.png').convert_alpha()
-duck_shot = pygame.transform.scale(duck_shot, (125, 125))
-
 fall_animation_frames = [pygame.image.load('falling_duck_resized.png').convert_alpha(),
                          pygame.image.load('falling_duck_resized.png').convert_alpha(),
                          pygame.image.load('falling_duck_resized.png').convert_alpha(),
@@ -35,14 +33,16 @@ fall_animation_frames = [pygame.image.load('falling_duck_resized.png').convert_a
                          pygame.image.load('falling_duck_resized_flipped.png').convert_alpha(),
                          pygame.image.load('falling_duck_resized_flipped.png').convert_alpha()
                          ]
-# duck_down = pygame.image.load('falling_duck_resized.png').convert_alpha()
+
+duck_shot = pygame.image.load('duck_shot.png').convert_alpha()
+duck_shot = pygame.transform.scale(duck_shot, (125, 125))
 
 
 def show_pts_on_screen(mouse_x, mouse_y):
-    score_font = pygame.font.Font('duckHuntFont.TTF', 32)
+    score_font = pygame.font.Font('duckHuntFont.TTF', 24)
     score_num = score_font.render('1500', True, (255, 255, 255))  # cant display + sign
-    text_x = mouse_x + 25
-    text_y = mouse_y - 25
+    text_x = mouse_x + 30
+    text_y = mouse_y - 20
     screen.blit(score_num, (text_x, text_y))
 
 
@@ -78,7 +78,8 @@ def draw_duck(duck):
     if duck.is_falling:
         # blit falling duck at pos where duck was clicked
         screen.blit(fall_animation_frames[duck.fall_frame_count],
-                    (duck.store_x - 20, duck.store_y))  # -20 to center img. because im a retard who cant crop images properly
+                    (duck.store_x - 20,  # -20 to center img. because im a retard who cant crop images properly
+                     duck.store_y))
         duck.fall_frame_count += 1  # cycle through the frames
         if duck.fall_frame_count + 1 > 8:  # 8 is num of frames
             duck.fall_frame_count = 0  # reset back to first frame to keep the cycle goings
@@ -95,6 +96,7 @@ def draw_duck(duck):
 
 # Move and draw all of the ducks
 def move_and_draw_ducks():
+    d = DuckObject
     for duck in ducks:
         draw_duck(duck)
 
@@ -108,7 +110,11 @@ def move_and_draw_ducks():
             duck.x += duck.v_x
             if duck.x > 2000:
                 # respawn with new random x,y coordinates and speed
+                d.strike += 1  # get a strike for a missed duck
+                if d.strike >= 3:
+                    d.strike = 3
                 duck.reset()
+
         if duck.dead:
             duck.dead_time -= 1
             if duck.dead_time <= 0:
